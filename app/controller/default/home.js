@@ -16,7 +16,7 @@ class HomeController extends Controller {
               'article.view_count as view_count,' +
               '.type.typeName as typeName ' +
               'FROM article LEFT JOIN type ON article.type_id = type.ID';
-              
+    // sql语句采用字符串拼接的方法，在用query的方式去请求
     const results = await this.app.mysql.query(sql);
     this.ctx.body = {
       data: results,

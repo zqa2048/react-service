@@ -1,4 +1,5 @@
-# service
+# 此项目为 [react-blog][react-blog] 项目的中台
+## service
 
 
 
@@ -31,3 +32,4 @@ $ npm stop
 
 
 [egg]: https://eggjs.org
+[react-blog]: https://github.com/zqa2048/react-blog
