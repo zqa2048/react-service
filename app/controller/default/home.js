@@ -8,16 +8,14 @@ class HomeController extends Controller {
     this.ctx.body = result;
   }
   async getArticleList() {
-    const id = this.ctx.params.id;
     const sql = 'SELECT article.ID as ID, ' +
               'article.addTime as addTime, ' +
               'article.id as id,' +
               'article.title as title,' +
               'article.introduce as introduce,' +
               'article.view_count as view_count,' +
-              '.type.typeName as typeName ,' +
-              'FROM article LEFT JOIN type ON article.type_id = type.ID,'
-              ;
+              '.type.typeName as typeName ' +
+              'FROM article LEFT JOIN type ON article.type_id = type.ID';
               
     const results = await this.app.mysql.query(sql);
     this.ctx.body = {
