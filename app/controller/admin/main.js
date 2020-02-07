@@ -98,10 +98,10 @@ class MainController extends Controller {
   }
   async Registered() {
     let tempUser = this.ctx.request.body;
-    let userName = tempUser.userName;
-    let sql = "SELECT userName = '" + userName + "' FROM admin_user";
-    const res = await this.app.mysql.query(sql);
-    console.log('result', res)
+    // let userName = tempUser.userName;
+    // let sql = "SELECT userName = '" + userName + "' FROM admin_user";
+    // const res = await this.app.mysql.query(sql);
+    // console.log('result', res)
     const result = await this.app.mysql.insert('admin_user', tempUser);
     const insertSuccess = result.affectedRows === 1;
     const insertId = result.insertId;
