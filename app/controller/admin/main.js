@@ -35,12 +35,11 @@ class MainController extends Controller {
   // 添加文章
   async addArticle() {
 
-    let tmpArticle= this.ctx.request.body
+    let tmpArticle= this.ctx.request.body;
     // tmpArticle.
-    const result = await this.app.mysql.insert('article',tmpArticle);
+    const result = await this.app.mysql.insert('article', tmpArticle);
     const insertSuccess = result.affectedRows === 1;
     const insertId = result.insertId;
-    console.log(result);
     this.ctx.body = {
       isScuccess:insertSuccess,
       insertId:insertId
@@ -51,7 +50,7 @@ class MainController extends Controller {
     
     const result = await this.app.mysql.update('article', tempArticle);
     const updateSuccess = result.affectedRows === 1;
-    console.log(updateSuccess);
+    // console.log(updateSuccess);
     this.ctx.body={
       isScuccess: updateSuccess
     }
@@ -96,6 +95,22 @@ class MainController extends Controller {
               'WHERE article.ID = ' + id;
     const result = await this.app.mysql.query(sql);
     this.ctx.body = { data: result };
+  }
+  async Registered() {
+    let tempUser = this.ctx.request.body;
+    let userName = tempUser.userName;
+    let sql = "SELECT userName = '" + userName + "' FROM admin_user";
+    const res = await this.app.mysql.query(sql);
+    console.log('result', res)
+    const result = await this.app.mysql.insert('admin_user', tempUser);
+    const insertSuccess = result.affectedRows === 1;
+    const insertId = result.insertId;
+    console.log('user:', tempUser);
+    this.ctx.body ={
+      isScuccess:insertSuccess,
+      insertId:insertId,
+      data: '注册成功'
+    }
   }
 }
 

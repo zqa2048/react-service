@@ -4,7 +4,7 @@ const Controller = require("egg").Controller;
 class HomeController extends Controller {
   async index() {
     const result = await this.app.mysql.get("blog_content", {});
-    console.log("result", result);
+    // console.log("result", result);
     this.ctx.body = result;
   }
   async getArticleList() {

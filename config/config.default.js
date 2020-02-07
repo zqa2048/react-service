@@ -30,22 +30,44 @@ module.exports = appInfo => {
   //   domainWhiteList: [ '*' ],
   // };
   // config.cors = {
-  //   origin: '*',
-  //   // origin: 'http:/localhost:3000', // 只允许这个域进行访问
+  //   orconstn: '*',
+  //   // origin: url, // 只允许这个域进行访问
   //   credentials: true, // 开启认证
   //   allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS', // 方法
   // };
 
   config.security = {
-　　csrf: {enable: false},
-　　domainWhiteList: [ '*' ]
-　　};
+    csrf: { enable: false },
+    domainWhiteList: [ '*' ],
+  };
   config.cors = {
-    origin: 'http://localhost:3000',
-    credentials: true,  //允许Cook可以跨域
+    // eslint-disable-next-line object-shorthand
+    origin: function(ctx) {
+      const whiteList = [ 'http://localhost:3001', 'http://localhost:3000'];
+      // if (whiteList.includes(ctx.header.origin)) {
+      //   if (ctx.header.referer.indexOf('/', ctx.header.referer.length - 1)) {
+          
+      //     let url = ctx.header.referer.substr(0, ctx.header.referer.length - 1);
+      //     console.log('url', url);
+      //     console.log('origin', ctx.header.origin);
+      //     console.log('referer', ctx.header.referer);
+      //     return url;
+      //   }
+        
+      // }
+      const url = ctx.header.origin;
+      if (url==whiteList[1] | url== whiteList[0]) {
+        console.log('url', url);
+        return url;
+      }
+      return 'http://localhost:3000';
+      
+      
+    },
+    credentials: true, // 允许Cook可以跨域
     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS'
-    };
-  
+  };
+
   config.mysql = {
     // database configuration
     client: {
