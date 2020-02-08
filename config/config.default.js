@@ -43,24 +43,26 @@ module.exports = appInfo => {
   config.cors = {
     // eslint-disable-next-line object-shorthand
     origin: function(ctx) {
-      const whiteList = [ 'http://localhost:3001', 'http://localhost:3000'];
-      // if (whiteList.includes(ctx.header.origin)) {
-      //   if (ctx.header.referer.indexOf('/', ctx.header.referer.length - 1)) {
-          
-      //     let url = ctx.header.referer.substr(0, ctx.header.referer.length - 1);
-      //     console.log('url', url);
-      //     console.log('origin', ctx.header.origin);
-      //     console.log('referer', ctx.header.referer);
-      //     return url;
-      //   }
+      const whiteList = [ 'http://47.101.215.198:3001', 'http://47.101.215.198:3000', 'http://localhost:3001', 'http://localhost:3000'];
+      console.log('origin', ctx.header.origin);
+       
+      if (ctx.header.origin.indexOf('/', ctx.header.origin.length - 1)) {
+        let url = ctx.header.origin.substr(0, ctx.header.origin.length - 1);
+        // eslint-disable-next-line no-bitwise
+        if (whiteList[0].includes(url) | whiteList[1].includes(url)) {
+          console.log('url', url);
+          console.log('origin', ctx.header.origin);
+          console.log('referer', ctx.header.referer);
+          return url;
+        }
         
-      // }
-      const url = ctx.header.origin;
-      if (url==whiteList[1] | url== whiteList[0]) {
-        console.log('url', url);
-        return url;
       }
-      return 'http://localhost:3000';
+      // const   url = ctx.header.origin.substr(0, ctx.header.origin.length - 1);
+      // if (url==whiteList[1] | url== whiteList[0]) {
+      //   console.log('url', url);
+      //   return url;
+      // }
+      return '*';
       
       
     },
